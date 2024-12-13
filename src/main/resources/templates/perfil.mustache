@@ -177,42 +177,48 @@
           color: #1e5552;
       }
 
+        .text-end {
+            text-align: right;
+        }
+
     </style>
 </head>
 <body>
 <header>
-    <div>
+    <div class="p-3">
         <a href="/inicio">
-            <img src="/static/logo.png" alt="Logo" style="max-height: 50px;">
+            <img src="/static/logo.png" alt="Logo" style="height: 50px;">
         </a>
     </div>
     <nav class="navbar navbar-expand-lg navbar-light">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
+                <li class="nav-item mr-3">
                     <a class="nav-link" href="#">Sobre nosotros</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/elegirDonacionFisica">Donar</a>
+                <li class="nav-item mr-3">
+                    <a class="nav-link" href="/elegirDonacion">Donar</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item mr-3">
                     <a class="nav-link" href="/mapaHeladeras">Heladeras</a>
                 </li>
+                <!-- Menú desplegable -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {{nombreUsuario}}
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="/perfil">Mi perfil</a>
                         <a class="dropdown-item" href="/misColaboraciones">Mis colaboraciones</a>
                         <a class="dropdown-item" href="/canjearPuntos">Mi puntaje</a>
                         <a class="dropdown-item" href="/misReportes">Mis reportes</a>
                         <a class="dropdown-item" href="#">Configuración</a>
-                        <a class="dropdown-item" href="/login">Cerrar sesión</a>
+                        <a class="dropdown-item" href="/logout">Cerrar sesión</a>
                     </div>
                 </li>
             </ul>
@@ -226,29 +232,91 @@
             <img src="/static/user-photo.png" alt="Foto del usuario" class="profile-photo">
         </div>
         <div class="col-md-9 profile-info">
-            <div class="info-group">
-                <div class="label">Usuario</div>
-                <div class="value">{{nombre}}</div>
-            </div>
-            <div class="info-group">
-                <div class="label">Domicilio</div>
-                <div class="value">{{direccion}}</div>
-            </div>
-            <div class="info-group">
-                <div class="label">Teléfono</div>
-                <div class="value">{{telefono}}</div>
-            </div>
-            <div class="info-group">
-                <div class="label">Email</div>
-                <div class="value">{{email}}</div>
-            </div>
-            <div class="info-group">
-                <div class="label ">Puntos acumulados</div>
-                <div class="value ">{{puntos}}</div>
-            </div>
+            <!-- Información del perfil -->
+            {{#esPersonaHumana}}
+                <div class="info-group">
+                    <div class="label">Nombre y Apellido</div>
+                    <div class="value">{{nombre}}</div>
+                </div>
+                <div class="info-group">
+                    <div class="label">Tipo de Documento</div>
+                    <div class="value">{{tipoDoc}}</div>
+                </div>
+                <div class="info-group">
+                    <div class="label">Número de Documento</div>
+                    <div class="value">{{nroDoc}}</div>
+                </div>
+                <div class="info-group">
+                    <div class="label">Fecha de Nacimiento</div>
+                    <div class="value">{{fechaNacimiento}}</div>
+                </div>
+                <div class="info-group">
+                    <div class="label">Domicilio</div>
+                    <div class="value">{{direccion}}</div>
+                </div>
+                <div class="info-group">
+                    <div class="label">Teléfono</div>
+                    <div class="value">{{telefono}}</div>
+                </div>
+                <div class="info-group">
+                    <div class="label">Mail</div>
+                    <div class="value">{{email}}</div>
+                </div>
+                <div class="info-group">
+                    <div class="label">Puntos acumulados</div>
+                    <div class="value">{{puntos}}</div>
+                </div>
+            {{/esPersonaHumana}}
+
+            {{#esPersonaJuridica}}
+                <div class="info-group">
+                    <div class="label">Razón Social</div>
+                    <div class="value">{{nombre}}</div>
+                </div>
+                <div class="info-group">
+                    <div class="label">CUIT</div>
+                    <div class="value">{{cuit}}</div>
+                </div>
+                <div class="info-group">
+                    <div class="label">Tipo Jurídico</div>
+                    <div class="value">{{tipoJuridico}}</div>
+                </div>
+                <div class="info-group">
+                    <div class="label">Rubro</div>
+                    <div class="value">{{rubro}}</div>
+                </div>
+                <div class="info-group">
+                    <div class="label">Domicilio</div>
+                    <div class="value">{{direccion}}</div>
+                </div>
+                <div class="info-group">
+                    <div class="label">Teléfono</div>
+                    <div class="value">{{telefono}}</div>
+                </div>
+                <div class="info-group">
+                    <div class="label">Mail</div>
+                    <div class="value">{{email}}</div>
+                </div>
+                <div class="info-group">
+                    <div class="label">Puntos acumulados</div>
+                    <div class="value">{{puntos}}</div>
+                </div>
+            {{/esPersonaJuridica}}
+        </div>
+    </div>
+
+    {{#notificacionCambio}}
+        <div class="text-{{tipo}}">{{mensaje}}</div>
+    {{/notificacionCambio}}
+
+    <!-- Botón alineado a la derecha -->
+    <div class="row">
+        <div class="col-md-12 text-end">
+            <a href="/configurarPerfil" class="btn2 btn2-submit">Editar perfil</a>
         </div>
     </div>
 </main>
+
 
 
 

@@ -14,34 +14,28 @@ import modelo.personas.TipoPersona;
 import persistencia.RepositorioColaboradores;
 import persistencia.RepositorioUsuarios;
 import modelo.authService.AuthServiceUsuario;
+import utils.GeneradorModel;
 
 public class ProcessLoginController implements Handler {
 
-    private RepositorioColaboradores repoColab;
-    private RepositorioUsuarios repoUsuarios;
-    private AuthServiceUsuario authServiceUsuario;
+    private RepositorioColaboradores repoColab = RepositorioColaboradores.getInstancia();
+    private RepositorioUsuarios repoUsuarios = RepositorioUsuarios.getInstancia();
 
-    public ProcessLoginController(RepositorioColaboradores repoColab, RepositorioUsuarios repoUsuarios) {
+    public ProcessLoginController() {
         super();
-        this.repoColab = repoColab;
-        this.repoUsuarios = repoUsuarios;
     }
 
     @Override
     public void handle(@NotNull Context context) throws Exception {
+        Map<String, Object> model = GeneradorModel.getModel(context);
         String email = context.formParam("email");
         String password = context.formParam("password");
-        Map<String, Object> model = context.sessionAttribute("model");
-        if (model == null) {
-            model = new HashMap<>();
-            context.sessionAttribute("model", model);
-        }
 
         try {
             AuthServiceUsuario.autenticarUsuario(email, password);
         } catch (ExcepcionValidacion e) {
             model.put("errorLogin", "El mail o la contraseña son incorrectos");
-            context.sessionAttribute("model", model);
+            context.sessionAttribute("errorLogin", "El mail o la contraseña son incorrectos");
             context.redirect("/login");
             return;
         }

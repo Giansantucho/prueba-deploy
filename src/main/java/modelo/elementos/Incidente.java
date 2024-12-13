@@ -26,19 +26,23 @@ public abstract class Incidente {
     @Getter protected LocalDateTime fechaHoraIncidente;
 
     @Column
-    @Getter @Setter
+    @Getter
     @DefaultValue("0")
     protected Boolean estaSolucionado;
+
 
     public Incidente(Heladera heladera) {
         this.heladera = heladera;
         this.fechaHoraIncidente = LocalDateTime.now();
+        this.estaSolucionado = Boolean.FALSE;
     }
 
     public Incidente() {
 
     }
 
-
+    public void fueResuelto() {
+        this.estaSolucionado = Boolean.TRUE;
+    }
 
 }
