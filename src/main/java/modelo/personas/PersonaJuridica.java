@@ -15,18 +15,17 @@ import java.util.List;
 public class PersonaJuridica extends Persona{
 
     @Column
-    @Getter private String razonSocial;
+    @Getter @Setter private String razonSocial;
 
     @Column
     @DefaultValue("0")
-    private String CUIT;
+    @Getter @Setter private String CUIT;
 
     @Enumerated(EnumType.STRING)
-    private TipoJuridico tipoJuridico;
+    @Getter @Setter private TipoJuridico tipoJuridico;
 
     @Enumerated(EnumType.STRING)
-    @Getter
-    private Rubro rubro;
+    @Getter @Setter private Rubro rubro;
 
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name= "persona_juridica_id", referencedColumnName = "id")
