@@ -1,16 +1,15 @@
 import io.javalin.Javalin;
-import io.javalin.http.Context;
 import io.javalin.http.staticfiles.Location;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Application {
     private static Javalin app = null;
@@ -30,7 +29,9 @@ public class Application {
             });
 
             // Configurar recursos estáticos
-            javalinConfig.staticFiles.add("/", Location.CLASSPATH);
+            javalinConfig.staticFiles.add("/static", Location.CLASSPATH);
+
+
 
         }).start(8080);
 
@@ -43,7 +44,17 @@ public class Application {
     }
 
     private static EntityManager getEntityManager() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("db");
+        // Configuración dinámica de la conexión usando el archivo application.properties
+        Map<String, String> properties = new HashMap<>();
+        properties.put("hibernate.connection.url", ConfigUtil.getProperty("db.url"));
+        properties.put("hibernate.connection.username", ConfigUtil.getProperty("db.username"));
+        properties.put("hibernate.connection.password", ConfigUtil.getProperty("db.password"));
+        properties.put("hibernate.dialect", ConfigUtil.getProperty("hibernate.dialect"));
+        properties.put("hibernate.show_sql", ConfigUtil.getProperty("hibernate.show_sql"));
+        properties.put("hibernate.format_sql", ConfigUtil.getProperty("hibernate.format_sql"));
+        properties.put("hibernate.hbm2ddl.auto", ConfigUtil.getProperty("hibernate.hbm2ddl.auto"));
+
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("db", properties);
         return emf.createEntityManager();
     }
 
@@ -74,4 +85,3 @@ public class Application {
         });
     }
 }
-

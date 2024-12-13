@@ -1,0 +1,10 @@
+elementos\ColaboracionesTest.class
+elementos\HeladeraTest.class
+notificaciones\NotificadoresTest.class
+suscripciones\SuscripcionesDesperfectoTest.class
+reportes\GenerarReportesTest.class
+suscripciones\SuscripcionesCantidadTest.class
+elementos\IncidentesTest.class
+personas\TecnicoTest.class
+validaciones\ValidacionesTest.class
+recomendadorDePuntos\ApiMockTest.class
